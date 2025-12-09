@@ -1,65 +1,134 @@
-import Image from "next/image";
+import Hero from "@/components/ui/Hero";
+import InfoSection from "@/components/ui/InfoSection";
+import Checklist from "@/components/ui/Checklist";
+import ProcessStep from "@/components/ui/ProcessStep";
+import BioCard from "@/components/ui/BioCard";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Header />
+      <main>
+        <Hero
+          title="Expert Care for Arthritis & Autoimmune Conditions"
+          subtitle="We are a premier destination for specialists and allied health professionals dedicated to optimising health and well-being. Located in Bella Vista."
+          ctaText="Book Appointment"
+          imageSrc="" // Will add placeholder logic in component
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* Self Qualification / When to see us */}
+        <InfoSection title="When to see a Rheumatologist" bgColor="white">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+             <div>
+                <p className="body-lg mb-6">
+                  Rheumatologists are specialists in diagnosing and treating arthritis and other musculoskeletal conditions and autoimmune diseases. 
+                  You should consider asking your GP for a referral if you experience:
+                </p>
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
+                     <span className="text-[var(--color-secondary)] font-bold text-xl">✓</span>
+                     <span className="text-lg">Persistent joint pain or swelling</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <span className="text-[var(--color-secondary)] font-bold text-xl">✓</span>
+                     <span className="text-lg">Morning stiffness lasting more than 30 minutes</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <span className="text-[var(--color-secondary)] font-bold text-xl">✓</span>
+                     <span className="text-lg">Unexplained chronic fatigue or fever</span>
+                  </div>
+                   <div className="flex items-center gap-3">
+                     <span className="text-[var(--color-secondary)] font-bold text-xl">✓</span>
+                     <span className="text-lg">Abnormal blood test results (ANA, ENA, Rheumatoid Factor)</span>
+                  </div>
+                </div>
+             </div>
+             <div className="bg-blue-50 p-8 rounded-2xl">
+                <h3 className="font-serif text-2xl font-bold text-[var(--color-primary)] mb-4">Did you know?</h3>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  Early diagnosis and treatment of conditions like Rheumatoid Arthritis can significantly reduce long-term joint damage.
+                </p>
+                <Link href="/services" className="text-[var(--color-action)] font-bold hover:underline">
+                  View Our Services &rarr;
+                </Link>
+             </div>
+          </div>
+        </InfoSection>
+
+        {/* New Patient Journey */}
+        <InfoSection title="New Patient Journey" bgColor="gray">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <ProcessStep
+              number={1}
+              title="Get Referral"
+              description="Obtain a valid referral from your GP. This ensures you receive your Medicare rebate."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+             <ProcessStep
+              number={2}
+              title="Send to Us"
+              description="Fax or email your referral to us before your appointment so we can triage your needs."
+            />
+             <ProcessStep
+              number={3}
+              title="Book Time"
+              description="Call our friendly reception team to schedule an appointment that suits you."
+            />
+             <ProcessStep
+              number={4}
+              title="Appointment"
+              description="Arrive 10 minutes early with your Medicare card and any relevant X-rays."
+            />
+          </div>
+          <div className="text-center mt-12">
+            <Link
+              href="/new-patients"
+              className="inline-block bg-[var(--color-primary)] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-800 transition-colors"
+            >
+              See Full Guide
+            </Link>
+          </div>
+        </InfoSection>
+
+        {/* Meet the Team Preview */}
+        <InfoSection title="Meet Our Specialists" bgColor="white">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <BioCard
+                name="Dr Shyamini Gunaratne"
+                role="Consultant Rheumatologist"
+                bio="Dr. Shyamini is a highly accomplished physician and rheumatologist. As a Staff Specialist at Macarthur Health Service and private practitioner since 2019, she specializes in complex autoimmune conditions."
+                slug="dr-shyamini-gunaratne"
+                imageUrl="" // Placeholder
+              />
+              <BioCard
+                name="Physiotherapy Team"
+                role="Allied Health"
+                bio="Our physiotherapy team focuses on rehabilitation, mobility, and pain management, working closely with rheumatologists for holistic care."
+                slug="physiotherapy"
+                imageUrl="" // Placeholder
+              />
+           </div>
+        </InfoSection>
+
+        {/* Location / Call to Action */}
+        <section className="bg-[var(--color-primary)] py-16 text-white text-center">
+           <div className="container mx-auto px-4">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">Ready to prioritize your health?</h2>
+              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+                Located conveniently in Bella Vista with on-site parking and lift access.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-block bg-[var(--color-action)] text-white font-bold py-4 px-10 rounded-full text-lg hover:bg-[var(--color-action-hover)] transition-colors shadow-lg"
+              >
+                Contact Us Today
+              </Link>
+           </div>
+        </section>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
