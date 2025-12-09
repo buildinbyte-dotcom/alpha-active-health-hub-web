@@ -31,9 +31,10 @@
 5.  **Health Resources (`/resources`)**
     *   **Condition Guides:** "Understanding Arthritis", "Living with Lupus".
     *   **Medication Info:** PDFs or simple guides on common biologics.
-6.  **Wellness Store (`/store`)**
+6.  **Wellness Recommendations (`/store`)**
     *   *Framing:* "Daily Living Aids & Doctor Recommended Tools."
     *   Categories: Ergonomics, Mobility Aids, Supplements (Evidence-based only).
+    *   *Disclaimer:* "These products are suggested aids, not prescriptions. Always consult your specialist."
 7.  **Contact (`/contact`)**
     *   **Accessibility Info:** Detailed parking/lift instructions + Photo of building entrance.
     *   Interactive Map.
@@ -48,7 +49,7 @@
     *   **Primary:** Deep Medical Blue (`#005696`) - Trust.
     *   **Secondary:** Sage Green (`#88B04B`) - Wellness.
     *   **Action:** Warm Orange (`#E87C38`) - High visibility for "Book Now" buttons.
-    *   **Background:** Off-white (`#FAFAF9`) to reduce glare.
+    *   **Background:** Off-white (`#FAFAF9`) - Reduces eye strain compared to pure white.
 *   **Accessibility (WCAG AAA Goal):**
     *   **Contrast:** All text must strictly pass 4.5:1.
     *   **Focus Indicators:** Thick, high-contrast outlines for keyboard users.
@@ -67,13 +68,14 @@
     3.  Triage/Booking
     4.  Appointment
 
-### Wellness Store (The "Recommended" Section)
+### Wellness Recommendations (The "Recommended" Section)
 *   **Philosophy:** "Tools we use and trust."
 *   **Product Card:**
     *   Image (Clean, white background).
     *   Title.
     *   **"Doctor's Note":** "Great for opening jars with weak grip." (Personalized value add).
     *   Button: "View on Amazon" (External Icon).
+*   **Disclaimer Component:** Explicit text at the top and bottom stating these are affiliate links and not medical advice.
 
 ## 5. Component List
 1.  **Navbar:** Sticky, with "Text Size" toggle.
@@ -83,3 +85,5 @@
 5.  **ProductCard:** Image, Title, Doctor's Note, Affiliate Link.
 6.  **AccessibilityBlock:** Specific UI component for the Contact page highlighting ramp/lift info.
 7.  **FAQAccordion:** Expandable questions to save vertical space.
+8.  **BookingAction:** All "Book Now" buttons link to `/contact` or trigger a `tel:` link (unless a specific HotDoc/HealthEngine URL is provided).
+9.  **DisclaimerBanner:** Reusable component for the Store and Advice sections.

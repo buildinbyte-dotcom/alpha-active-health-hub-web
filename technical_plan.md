@@ -15,6 +15,12 @@
     *   **User Experience:** The Sanity Studio provides a clean, real-time dashboard for non-technical staff to manage content.
     *   **Affiliate Integration:** Can easily create a schema for products that includes an "Affiliate Link" field, making the "Wellness Store" easy to manage.
 
+### Forms: **Web3Forms**
+*   **Justification:**
+    *   **Static Compatibility:** Perfect for Next.js as it doesn't require a backend server.
+    *   **Simplicity:** Submissions are sent directly to the practice's email.
+    *   **Cost:** Generous free tier suitable for the volume of a private practice.
+
 ### Hosting: **Vercel**
 *   **Justification:**
     *   **Integration:** Built by the creators of Next.js, offering the best performance and zero-config deployment.
@@ -36,13 +42,13 @@
 ### Phase 2: Core Development (Days 3-5)
 *   **Design System Implementation:** Tailwind CSS configuration for accessibility (colors, typography).
 *   **Component Build:** Header (Nav), Footer, Hero, Bio Card, Info Section.
-*   **Page Build:** Home, Contact.
+*   **Page Build:** Home, Contact (integrated with Web3Forms).
 
 ### Phase 3: Features & Content (Days 6-8)
 *   **Team Section:** Dynamic rendering of `Doctor` profiles.
-*   **Wellness Store:** `Product` grid with "Buy on Amazon" buttons (affiliate link logic).
+*   **Wellness Store:** `Product` grid with "Buy on Amazon" buttons (affiliate link logic) and Disclaimer component.
 *   **Resources:** Blog/Article index and individual post pages.
-*   **Migration:** Manual entry of Dr. Shyamini’s existing bio and site content into Sanity.
+*   **Migration:** Import structured data from `content_migration.json` to populate initial Sanity content (Bio, Location, Services).
 
 ### Phase 4: Testing & Launch (Days 9-10)
 *   **Accessibility Audit:** Run Lighthouse and Axe tests to ensure WCAG AA compliance.

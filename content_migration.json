@@ -1,0 +1,39 @@
+{
+  "home": {
+    "hero": {
+      "title": "Welcome!",
+      "subtitle": "We are a premier destination for specialists and allied health professionals dedicated to optimising health and well-being."
+    },
+    "team_preview": {
+      "doctor_name": "Dr Shyamini Gunaratne (MBBS, FRACP) - Consultant Rheumatologist",
+      "short_bio": "In this practice, expert care meets compassionate service. I’m a college-certified rheumatologist with several years of experience in diagnosing and treating a wide range of autoimmune and inflammatory conditions, including rheumatoid arthritis, lupus, and osteoarthritis."
+    },
+    "location": {
+      "address": "Level 3, Suite 306, Alpha Building, 5 Celebration Drive, Bella Vista NSW 2153",
+      "parking": "A few visitor parking spots are available on-site. Additional parking can be found on nearby streets."
+    },
+    "contact": {
+      "phone": "(02) 9189 1008",
+      "fax": "(02) 8905 9625"
+    }
+  },
+  "about_dr_shyamini": {
+    "full_bio": [
+      "Dr. Shyamini is a highly accomplished physician and rheumatologist, integrating clinical expertise, academic research, and a passion for education and mentorship. As a Staff Specialist at Macarthur Health Service and private practitioner since 2019, she has been instrumental in managing complex autoimmune and musculoskeletal conditions with a patient-centred approach.",
+      "Her dual training in rheumatology and nuclear medicine, completed at esteemed institutions such as Concord, Westmead, and Campbelltown Hospitals, equips her with unique insights into diagnosing and treating inflammatory and degenerative joint diseases.",
+      "A dedicated researcher, Dr. Shyamini has contributed to innovations in imaging techniques for inflammatory arthritis and joint diseases. Her work on ultrasound and scintigraphic evaluations has been presented at leading conferences, including the Australian and New Zealand Rheumatology Association meetings, and published in renowned journals like Emergency Medicine Australasia.",
+      "Dr. Shyamini is equally devoted to education, mentoring medical students and junior doctors through her roles as a tutor, lecturer, and leader of physician training programs."
+    ]
+  },
+  "services": {
+    "rheumatology": {
+      "conditions": [
+        "Rheumatoid arthritis",
+        "Lupus",
+        "Osteoarthritis",
+        "Autoimmune conditions",
+        "Inflammatory conditions"
+      ]
+    }
+  }
+}

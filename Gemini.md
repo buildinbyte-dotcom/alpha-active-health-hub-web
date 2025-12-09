@@ -20,8 +20,10 @@
 *   **Management:** Non-technical admin must be able to update content (Team, Products, Articles).
 *   **Cost:** Minimize ongoing costs (Free tiers preferred).
 *   **Features:**
-    *   **Wellness Store:** Doctor-recommended products with affiliate links.
+    *   **Wellness Recommendations:** Doctor-recommended products with affiliate links. **MUST include Disclaimer Component.**
     *   **Health Resources:** Articles/guides for patient education (SEO focus).
+    *   **Booking:** NO internal booking engine. "Book Now" links to Phone or Contact Page.
+    *   **Forms:** Use Web3Forms for contact submissions (No serverless complexity).
 
 ## Extracted Content (Do Not Lose)
 *   **Dr. Bio:** "Highly accomplished physician and rheumatologist... Staff Specialist at Macarthur Health Service... Dual training in rheumatology and nuclear medicine..."
