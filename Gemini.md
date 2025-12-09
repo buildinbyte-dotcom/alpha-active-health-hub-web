@@ -16,6 +16,9 @@
 ## Constraints & Requirements
 *   **Target Audience:** Older adults/seniors.
     *   *Strict Requirement:* WCAG Accessibility (Large fonts, high contrast, easy navigation).
+*   **Quality Assurance:**
+    *   *Strict Requirement:* All new features and components **MUST** include unit tests.
+    *   *Strict Requirement:* Zero regressions allowed. Run tests before every major change.
 *   **Tech Stack:** Headless/Modern architecture.
 *   **Management:** Non-technical admin must be able to update content (Team, Products, Articles).
 *   **Cost:** Minimize ongoing costs (Free tiers preferred).
