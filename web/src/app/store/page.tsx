@@ -3,38 +3,37 @@ import Footer from "@/components/ui/Footer";
 import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
 import ProductCard from "@/components/ui/ProductCard";
 
-const PRODUCTS = [
-  {
-    name: "Ergonomic Jar Opener",
-    description: "Designed for weak hands, this jar opener creates leverage to open stubborn lids with minimal effort.",
-    doctorNote: "Excellent for patients with hand osteoarthritis or RA.",
-    affiliateLink: "https://amazon.com.au", // Placeholder
-    imageUrl: "" // Placeholder
-  },
-  {
-    name: "Compression Gloves",
-    description: "Comfortable cotton-spandex gloves that provide mild compression and warmth to help control joint swelling.",
-    doctorNote: "Can be worn at night to reduce morning stiffness.",
-    affiliateLink: "https://amazon.com.au", // Placeholder
-    imageUrl: "" // Placeholder
-  },
-  {
-    name: "Long-Handled Shoe Horn",
-    description: "Extra long metal shoe horn to assist with putting on shoes without bending over.",
-    doctorNote: "Recommended for patients with hip or back pain.",
-    affiliateLink: "https://amazon.com.au", // Placeholder
-    imageUrl: "" // Placeholder
-  },
-   {
-    name: "Heat Pack / Cold Pack",
-    description: "Reusable gel pack for hot or cold therapy to soothe aching joints and muscles.",
-    doctorNote: "Use cold for acute inflammation and heat for stiff muscles.",
-    affiliateLink: "https://amazon.com.au", // Placeholder
-    imageUrl: "" // Placeholder
-  }
-];
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
+import ProductCard from "@/components/ui/ProductCard";
+import { sanityClient } from '@/lib/sanity';
 
-export default function StorePage() {
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  doctorNote: string;
+  affiliateLink: string;
+  imageUrl: string;
+}
+
+async function getProducts(): Promise<Product[]> {
+  const query = `
+    *[_type == "product"]{
+      _id,
+      name,
+      description,
+      doctorNote,
+      affiliateLink,
+      "imageUrl": image.asset->url
+    }
+  `;
+  return sanityClient.fetch(query);
+}
+
+export default async function StorePage() {
+  const products = await getProducts();
   return (
     <>
       <Header />
@@ -50,8 +49,8 @@ export default function StorePage() {
            <DisclaimerBanner />
            
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {PRODUCTS.map((product, index) => (
-                <ProductCard key={index} {...product} />
+              {products.map((product) => (
+                <ProductCard key={product._id} {...product} />
               ))}
            </div>
         </div>

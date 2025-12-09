@@ -2,7 +2,40 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
 
-export default function ResourcesPage() {
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
+import { sanityClient } from '@/lib/sanity';
+import Image from "next/image";
+import Link from "next/link";
+
+interface Article {
+  _id: string;
+  title: string;
+  slug: string;
+  publishedAt: string;
+  excerpt: string;
+  imageUrl?: string;
+  tags?: string[];
+}
+
+async function getArticles(): Promise<Article[]> {
+  const query = `
+    *[_type == "article"]|order(publishedAt desc){
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      "excerpt": array::join(body[0].children[0].text, ""), // Get first paragraph for excerpt
+      "imageUrl": mainImage.asset->url, // Assuming a mainImage field
+      tags // Assuming tags are simple strings
+    }
+  `;
+  return sanityClient.fetch(query);
+}
+
+export default async function ResourcesPage() {
+  const articles = await getArticles();
   return (
     <>
       <Header />
@@ -20,21 +53,32 @@ export default function ResourcesPage() {
            <DisclaimerBanner />
            
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Placeholder Articles */}
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                 <article key={i} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+              {articles.map((article) => (
+                 <article key={article._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
                     <div className="h-48 bg-gray-200 w-full relative">
-                        <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                           Article Image {i}
-                        </div>
+                        {article.imageUrl && (
+                            <Image
+                                src={article.imageUrl}
+                                alt={article.title}
+                                fill
+                                className="object-cover"
+                            />
+                        )}
+                        {!article.imageUrl && (
+                            <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                                No Image
+                            </div>
+                        )}
                     </div>
                     <div className="p-6">
-                       <span className="text-xs font-bold text-[var(--color-secondary)] uppercase tracking-wide mb-2 block">Patient Guide</span>
-                       <h2 className="text-xl font-bold text-gray-900 mb-3">Understanding Rheumatoid Arthritis: A Beginner's Guide</h2>
+                       {article.tags && article.tags.length > 0 && (
+                           <span className="text-xs font-bold text-[var(--color-secondary)] uppercase tracking-wide mb-2 block">{article.tags[0]}</span>
+                       )}
+                       <h2 className="text-xl font-bold text-gray-900 mb-3">{article.title}</h2>
                        <p className="text-gray-600 mb-4 line-clamp-3">
-                          Rheumatoid arthritis is an autoimmune disease that causes joint pain and damage throughout your body. Learn about early signs and treatments.
+                          {article.excerpt}
                        </p>
-                       <a href="#" className="text-[var(--color-action)] font-bold hover:underline">Read Article &rarr;</a>
+                       <Link href={`/resources/${article.slug}`} className="text-[var(--color-action)] font-bold hover:underline">Read Article &rarr;</Link>
                     </div>
                  </article>
               ))}

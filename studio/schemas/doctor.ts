@@ -28,6 +28,11 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'role',
+      title: 'Role',
+      type: 'string',
+    }),
+    defineField({
       name: 'credentials',
       title: 'Credentials',
       type: 'string',

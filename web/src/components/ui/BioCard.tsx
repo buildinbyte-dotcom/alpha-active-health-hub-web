@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PortableText } from '@portabletext/react';
 
 interface BioCardProps {
   name: string;
   role: string;
-  bio: string; // Short bio
+  bio: any[]; // Portable Text
   imageUrl?: string;
   slug: string; // For linking to full profile
 }
@@ -29,9 +30,11 @@ export default function BioCard({ name, role, bio, imageUrl, slug }: BioCardProp
       <div className="p-6 flex flex-col flex-grow">
         <h3 className="font-serif text-xl font-bold text-[var(--color-primary)] mb-1">{name}</h3>
         <p className="text-sm font-semibold text-[var(--color-secondary)] uppercase tracking-wide mb-4">{role}</p>
-        <p className="text-gray-600 mb-6 line-clamp-4 flex-grow">{bio}</p>
+        <div className="text-gray-600 mb-6 line-clamp-4 flex-grow">
+          <PortableText value={bio} />
+        </div>
         <Link
-          href={`/team`} // In a real app, maybe /team/[slug] but for now listing on /team
+          href={`/team/${slug}`} // Dynamic link to individual doctor profile
           className="text-[var(--color-action)] font-bold hover:underline self-start"
         >
           Read Full Bio &rarr;
@@ -40,3 +43,4 @@ export default function BioCard({ name, role, bio, imageUrl, slug }: BioCardProp
     </div>
   );
 }
+

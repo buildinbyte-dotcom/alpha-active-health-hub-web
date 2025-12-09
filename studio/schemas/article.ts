@@ -25,6 +25,14 @@ export default defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: 'body',
       title: 'Body',
       type: 'array',
