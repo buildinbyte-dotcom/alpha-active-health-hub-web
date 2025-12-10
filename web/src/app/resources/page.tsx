@@ -1,10 +1,6 @@
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
-
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
 import { sanityClient } from '@/lib/sanity';
 import Image from "next/image";
 import Link from "next/link";

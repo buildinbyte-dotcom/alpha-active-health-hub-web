@@ -2,11 +2,6 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
 import ProductCard from "@/components/ui/ProductCard";
-
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import DisclaimerBanner from "@/components/ui/DisclaimerBanner";
-import ProductCard from "@/components/ui/ProductCard";
 import { sanityClient } from '@/lib/sanity';
 
 interface Product {

@@ -32,7 +32,7 @@ export default defineType({
       name: 'doctorNote',
       title: "Doctor's Note",
       type: 'string',
-      description: 'Why is this recommended? e.g. "Great for opening jars.",
+      description: 'Why is this recommended? e.g. "Great for opening jars."',
     }),
     defineField({
       name: 'category',
