@@ -8,10 +8,12 @@ import Link from "next/link";
 interface Product {
   _id: string;
   name: string;
-  description: string;
-  doctorNote: string;
+  shortDescription?: string;
+  description: any[]; // PortableText array
+  doctorNote?: string;
   affiliateLink: string;
   imageUrl: string;
+  recommendedBy?: string;
 }
 
 async function getProducts(): Promise<Product[]> {
@@ -19,9 +21,11 @@ async function getProducts(): Promise<Product[]> {
     *[_type == "product"]{
       _id,
       name,
+      shortDescription,
       description,
       doctorNote,
       affiliateLink,
+      recommendedBy,
       "imageUrl": image.asset->url
     }
   `;

@@ -1,51 +1,97 @@
-import { defineField, defineType } from 'sanity'
-
-export default defineType({
+export default {
   name: 'product',
   title: 'Product',
   type: 'document',
   fields: [
-    defineField({
+    {
       name: 'name',
-      title: 'Name',
+      title: 'Product Name',
       type: 'string',
-    }),
-    defineField({
+      validation: (Rule: any) => Rule.required(),
+    },
+    {
+      name: 'shortDescription',
+      title: 'Short Description',
+      description: 'Brief description shown on product cards (2-3 lines max)',
+      type: 'text',
+      rows: 3,
+      validation: (Rule: any) => Rule.max(200).warning('Keep it brief for card display'),
+    },
+    {
+      name: 'description',
+      title: 'Full Description',
+      description: 'Detailed product information with rich formatting',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'Heading 3', value: 'h3' },
+            { title: 'Heading 4', value: 'h4' },
+          ],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Numbered', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Strong', value: 'strong' },
+              { title: 'Emphasis', value: 'em' },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      name: 'doctorNote',
+      title: "Doctor's Note",
+      description: 'Professional recommendation or insight about this product',
+      type: 'text',
+      rows: 3,
+    },
+    {
       name: 'image',
-      title: 'Image',
+      title: 'Product Image',
       type: 'image',
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-    }),
-    defineField({
+      validation: (Rule: any) => Rule.required(),
+    },
+    {
       name: 'affiliateLink',
-      title: 'Affiliate Link',
+      title: 'Amazon Affiliate Link',
       type: 'url',
-    }),
-    defineField({
-      name: 'doctorNote',
-      title: "Doctor's Note",
-      type: 'string',
-      description: 'Why is this recommended? e.g. "Great for opening jars."',
-    }),
-    defineField({
-      name: 'category',
-      title: 'Category',
+      validation: (Rule: any) => Rule.required().uri({
+        scheme: ['http', 'https']
+      }),
+    },
+    {
+      name: 'recommendedBy',
+      title: 'Recommended By',
+      description: 'Which specialist recommends this product',
       type: 'string',
       options: {
         list: [
-            { title: 'Ergonomics', value: 'ergonomics' },
-            { title: 'Mobility Aids', value: 'mobility' },
-            { title: 'Supplements', value: 'supplements' },
-            { title: 'Other', value: 'other' },
-        ]
-      }
-    }),
+          { title: 'Rheumatologist', value: 'Rheumatologist' },
+          { title: 'Physiotherapist', value: 'Physiotherapist' },
+          { title: 'All Specialists', value: 'All Specialists' },
+        ],
+      },
+    },
+    {
+      name: 'price',
+      title: 'Price (optional)',
+      description: 'Display price if applicable',
+      type: 'string',
+    },
   ],
-})
+  preview: {
+    select: {
+      title: 'name',
+      media: 'image',
+      subtitle: 'recommendedBy',
+    },
+  },
+};
