@@ -46,7 +46,7 @@ export default async function Home() {
           title="Expert Care for Arthritis & Autoimmune Conditions"
           subtitle="We are a premier destination for specialists and allied health professionals dedicated to optimising health and well-being. Located in Bella Vista."
           ctaText="Book Appointment"
-          imageSrc="" // Will add placeholder logic in component
+          imageSrc="/hero-medical-team.png"
         />
 
         {/* Self Qualification / When to see us */}
