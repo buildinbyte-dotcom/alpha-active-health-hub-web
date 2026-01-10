@@ -61,6 +61,45 @@ export async function generateMetadata(
   };
 }
 
+// Custom PortableText components for better formatting
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: any) => (
+      <p className="mb-6 text-gray-700 leading-relaxed text-lg">{children}</p>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="text-2xl font-bold text-[var(--color-primary)] mt-8 mb-4">{children}</h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">{children}</h3>
+    ),
+  },
+  list: {
+    bullet: ({ children }: any) => (
+      <ul className="list-disc list-inside mb-6 space-y-2 text-gray-700 ml-4">{children}</ul>
+    ),
+    number: ({ children }: any) => (
+      <ol className="list-decimal list-inside mb-6 space-y-2 text-gray-700 ml-4">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: any) => (
+      <li className="text-lg leading-relaxed">{children}</li>
+    ),
+    number: ({ children }: any) => (
+      <li className="text-lg leading-relaxed">{children}</li>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-bold text-gray-900">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic">{children}</em>
+    ),
+  },
+};
+
 export default async function DoctorProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const doctor = await getDoctorBySlug(slug);
@@ -77,6 +116,9 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
     );
   }
 
+  // Extract first name for personalized heading
+  const firstName = doctor.name.split(' ').slice(1).join(' ') || doctor.name;
+
   return (
     <>
       <Header />
@@ -91,37 +133,49 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/3">
-            {doctor.imageUrl && (
-              <Image
-                src={doctor.imageUrl}
-                alt={doctor.name}
-                width={400}
-                height={400}
-                className="rounded-lg shadow-md object-cover w-full h-auto"
-              />
-            )}
-            {doctor.specialties && doctor.specialties.length > 0 && (
-              <div className="mt-6 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
-                <h3 className="font-serif text-lg font-bold text-[var(--color-primary)] mb-4">
-                  Areas of Expertise
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {doctor.specialties.map((specialty, index) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-blue-50 text-[var(--color-primary)] text-sm font-semibold px-4 py-2 rounded-full"
-                    >
-                      {specialty}
-                    </span>
-                  ))}
+        <div className="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Left Sidebar - Image and Specialties */}
+            <div className="lg:col-span-1">
+              {doctor.imageUrl && (
+                <Image
+                  src={doctor.imageUrl}
+                  alt={doctor.name}
+                  width={400}
+                  height={400}
+                  className="rounded-lg shadow-md object-cover w-full h-auto"
+                />
+              )}
+              {doctor.specialties && doctor.specialties.length > 0 && (
+                <div className="mt-6 bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                  <h3 className="font-serif text-lg font-bold text-[var(--color-primary)] mb-4">
+                    Areas of Expertise
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {doctor.specialties.map((specialty, index) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-blue-50 text-[var(--color-primary)] text-sm font-semibold px-4 py-2 rounded-full"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Main Content - Biography */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-10">
+                <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-6">
+                  About Dr. {firstName}
+                </h2>
+                <div className="prose-custom max-w-none">
+                  <PortableText value={doctor.bio} components={portableTextComponents} />
                 </div>
               </div>
-            )}
-          </div>
-          <div className="md:w-2/3 prose lg:prose-xl">
-            <PortableText value={doctor.bio} />
+            </div>
           </div>
         </div>
       </main>
