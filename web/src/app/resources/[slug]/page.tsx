@@ -32,9 +32,10 @@ async function getArticleBySlug(slug: string): Promise<Article | null> {
 }
 
 export async function generateMetadata(
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
-  const article = await getArticleBySlug(params.slug);
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     return {
@@ -59,8 +60,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     return (
@@ -89,11 +91,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <h1 className="h1">{article.title}</h1>
             <p className="body-lg max-w-2xl mx-auto text-gray-500">Published on {formattedDate}</p>
             {article.tags && article.tags.length > 0 && (
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                    {article.tags.map(tag => (
-                        <span key={tag} className="bg-[var(--color-secondary)] text-white text-xs px-3 py-1 rounded-full">{tag}</span>
-                    ))}
-                </div>
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {article.tags.map(tag => (
+                  <span key={tag} className="bg-[var(--color-secondary)] text-white text-xs px-3 py-1 rounded-full">{tag}</span>
+                ))}
+              </div>
             )}
           </div>
         </div>
@@ -113,9 +115,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <PortableText value={article.body} />
           </div>
           <div className="mt-12 text-center">
-              <Link href="/resources" className="text-[var(--color-action)] font-bold hover:underline text-lg">
-                  &larr; Back to Resources
-              </Link>
+            <Link href="/resources" className="text-[var(--color-action)] font-bold hover:underline text-lg">
+              &larr; Back to Resources
+            </Link>
           </div>
         </div>
       </main>
