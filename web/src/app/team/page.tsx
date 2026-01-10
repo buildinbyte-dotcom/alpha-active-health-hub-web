@@ -38,7 +38,7 @@ export default async function TeamPage() {
     <>
       <Header />
       <main className="bg-[var(--color-background)] min-h-screen">
-        <div className="bg-white border-b border-gray-100 py-16">
+        <div className="bg-blue-50 border-b border-gray-100 py-16">
           <div className="container mx-auto px-4 text-center">
             <h1 className="h1">Meet Our Specialists</h1>
             <p className="body-lg max-w-2xl mx-auto">

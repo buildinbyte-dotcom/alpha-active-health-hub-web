@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <Header />
       <main className="bg-[var(--color-background)] min-h-screen">
         {/* Article Header */}
-        <div className="bg-white border-b border-gray-100 py-12 md:py-16">
+        <div className="bg-blue-50 border-b border-gray-100 py-12 md:py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="h1 mb-4">{article.title}</h1>

@@ -123,7 +123,7 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
     <>
       <Header />
       <main className="bg-[var(--color-background)] min-h-screen">
-        <div className="bg-white border-b border-gray-100 py-16">
+        <div className="bg-blue-50 border-b border-gray-100 py-16">
           <div className="container mx-auto px-4 text-center">
             <h1 className="h1">{doctor.name}</h1>
             {doctor.credentials && (

@@ -34,10 +34,10 @@ export default async function StorePage() {
     <>
       <Header />
       <main className="bg-white min-h-screen">
-        <div className="bg-[var(--color-primary)] text-white py-16">
+        <div className="bg-blue-50 py-16">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Wellness Recommendations</h1>
-            <p className="text-xl opacity-90">Daily living aids and tools trusted by our specialists.</p>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-[var(--color-primary)]">Wellness Recommendations</h1>
+            <p className="text-xl text-gray-700">Daily living aids and tools trusted by our specialists.</p>
           </div>
         </div>
 
