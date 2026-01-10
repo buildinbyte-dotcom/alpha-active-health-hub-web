@@ -109,12 +109,12 @@ export default function ProductModal({ isOpen, onClose, product }: ProductModalP
                     </button>
 
                     <div className="grid md:grid-cols-2 gap-8 p-8 md:p-10 overflow-y-auto max-h-[90vh]">
-                        {/* Image Side */}
                         <div className="relative h-80 md:h-96 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
                             <Image
                                 src={product.imageUrl}
                                 alt={product.name}
                                 fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 className="object-contain p-6"
                                 priority
                             />

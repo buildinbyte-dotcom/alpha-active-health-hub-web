@@ -28,13 +28,13 @@ export default function ProductCard({
   return (
     <>
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-        {/* Image Container */}
         <div className="relative h-48 w-full bg-gradient-to-br from-gray-50 to-gray-100 p-4 flex items-center justify-center overflow-hidden">
           {imageUrl ? (
             <Image
               src={imageUrl}
               alt={name}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
             />
           ) : (

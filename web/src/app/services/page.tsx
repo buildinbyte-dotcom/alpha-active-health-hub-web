@@ -44,6 +44,7 @@ export default function ServicesPage() {
                     src={service.icon}
                     alt={`${service.title} icon`}
                     fill
+                    sizes="64px"
                     className="object-contain"
                   />
                 </div>
