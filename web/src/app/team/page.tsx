@@ -32,6 +32,9 @@ async function getDoctors(): Promise<Doctor[]> {
   return sanityClient.fetch(query);
 }
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60;
+
 export default async function TeamPage() {
   const teamMembers = await getDoctors();
   return (
