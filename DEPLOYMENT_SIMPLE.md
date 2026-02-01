@@ -37,6 +37,7 @@ cd c:\Users\viraj\Documents\GitHub\website\studio
 ### Step 2: Deploy the Studio
 
 ```bash
+npx sanity login
 npm run deploy
 ```
 
