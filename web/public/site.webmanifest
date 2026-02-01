@@ -1,0 +1,17 @@
+{
+  "name": "Alpha Active Health Hub",
+  "short_name": "Alpha Active",
+  "description": "Premier rheumatology and physiotherapy specialists in Bella Vista",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#5B3A8F",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

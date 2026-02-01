@@ -43,18 +43,19 @@ export default function Hero({
           {/* Image */}
           <div className="relative h-64 md:h-96 lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-xl bg-gray-200">
             {imageSrc ? (
-               <Image
-                 src={imageSrc}
-                 alt="Senior patient enjoying active lifestyle"
-                 fill
-                 className="object-cover"
-                 priority
-               />
+              <Image
+                src={imageSrc}
+                alt="Senior patient enjoying active lifestyle"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
             ) : (
-                // Placeholder if no image provided
-                <div className="absolute inset-0 flex items-center justify-center bg-blue-50">
-                    <span className="text-gray-400 font-medium">Hero Image Placeholder</span>
-                </div>
+              // Placeholder if no image provided
+              <div className="absolute inset-0 flex items-center justify-center bg-blue-50">
+                <span className="text-gray-400 font-medium">Hero Image Placeholder</span>
+              </div>
             )}
           </div>
         </div>
