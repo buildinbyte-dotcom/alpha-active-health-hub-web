@@ -31,6 +31,9 @@ async function getArticleBySlug(slug: string): Promise<Article | null> {
   return sanityClient.fetch(query, { slug });
 }
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
