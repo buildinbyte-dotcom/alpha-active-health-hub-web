@@ -43,7 +43,7 @@ export async function generateMetadata(
 
   if (!doctor) {
     return {
-      title: 'Doctor Not Found | Alpha Active Health',
+      title: 'Team Member Not Found | Alpha Active Health',
     };
   }
 
@@ -112,15 +112,12 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
       <>
         <Header />
         <main className="min-h-screen flex items-center justify-center">
-          <p className="text-red-500 text-lg">Doctor not found.</p>
+          <p className="text-red-500 text-lg">Team member not found.</p>
         </main>
         <Footer />
       </>
     );
   }
-
-  // Extract first name for personalized heading
-  const firstName = doctor.name.split(' ').slice(1).join(' ') || doctor.name;
 
   return (
     <>
@@ -172,7 +169,7 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
             <div className="lg:col-span-2">
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-6">
-                  About Dr. {firstName}
+                  About {doctor.name}
                 </h2>
                 <div className="prose-custom max-w-none">
                   <PortableText value={doctor.bio} components={portableTextComponents} />
