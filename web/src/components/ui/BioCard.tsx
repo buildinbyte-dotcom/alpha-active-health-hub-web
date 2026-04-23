@@ -12,16 +12,27 @@ interface BioCardProps {
   specialties?: string[];
 }
 
+// Request a uniformly-cropped, face-aware thumbnail from the Sanity CDN so
+// every card renders the same portrait proportions regardless of the source
+// image's aspect ratio or framing.
+function toThumbnailUrl(url: string, width = 600, height = 750): string {
+  if (!url.includes('cdn.sanity.io')) return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}w=${width}&h=${height}&fit=crop&crop=faces,center&auto=format`;
+}
+
 export default function BioCard({ name, role, credentials, bio, imageUrl, slug, specialties }: BioCardProps) {
+  const thumbnailUrl = imageUrl ? toThumbnailUrl(imageUrl) : undefined;
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full">
-      <div className="relative h-64 w-full bg-gray-100">
-        {imageUrl ? (
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full w-full">
+      <div className="relative aspect-[4/5] w-full bg-gray-100">
+        {thumbnailUrl ? (
           <Image
-            src={imageUrl}
+            src={thumbnailUrl}
             alt={name}
             fill
-            className="object-cover"
+            sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover object-top"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
@@ -30,7 +41,7 @@ export default function BioCard({ name, role, credentials, bio, imageUrl, slug, 
         )}
       </div>
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="font-serif text-xl font-bold text-[var(--color-primary)] mb-1">{name}</h3>
+        <h3 className="font-serif text-xl font-bold text-[var(--color-primary)] leading-tight mb-2">{name}</h3>
         {credentials && (
           <p className="text-sm text-gray-500 mb-2">{credentials}</p>
         )}
