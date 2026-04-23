@@ -35,8 +35,9 @@ export default function BioCard({ name, role, credentials, bio, imageUrl, slug, 
           <p className="text-sm text-gray-500 mb-2">{credentials}</p>
         )}
         <p className="text-sm font-semibold text-[var(--color-secondary)] uppercase tracking-wide mb-4">{role}</p>
-        <div className="text-gray-600 mb-4 line-clamp-4 flex-grow">
+        <div className="text-gray-600 mb-4 flex-grow max-h-28 overflow-hidden relative [&_p]:mb-2 [&_p:last-child]:mb-0">
           <PortableText value={bio} />
+          <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent" />
         </div>
         {specialties && specialties.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
