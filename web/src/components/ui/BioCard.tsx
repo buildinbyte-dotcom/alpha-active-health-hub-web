@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from '@portabletext/react';
+import { SanityImageSource, getImageUrl, getHotspotPosition } from '@/lib/sanityImage';
 
 interface BioCardProps {
   name: string;
@@ -8,20 +9,26 @@ interface BioCardProps {
   credentials?: string;
   bio: any[]; // Portable Text
   imageUrl?: string;
+  image?: SanityImageSource; // Full Sanity image object with hotspot
   slug: string;
   specialties?: string[];
 }
 
-export default function BioCard({ name, role, credentials, bio, imageUrl, slug, specialties }: BioCardProps) {
+export default function BioCard({ name, role, credentials, bio, imageUrl, image, slug, specialties }: BioCardProps) {
+  // Use hotspot-aware URL if available, fall back to plain imageUrl
+  const displayUrl = getImageUrl(image, 600, 400) || imageUrl;
+  const objectPosition = getHotspotPosition(image);
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full">
       <div className="relative h-64 w-full bg-gray-100">
-        {imageUrl ? (
+        {displayUrl ? (
           <Image
-            src={imageUrl}
+            src={displayUrl}
             alt={name}
             fill
             className="object-cover"
+            style={{ objectPosition }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
@@ -66,4 +73,3 @@ export default function BioCard({ name, role, credentials, bio, imageUrl, slug, 
     </div>
   );
 }
-

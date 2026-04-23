@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import type { Metadata } from 'next';
+import { getImageUrl, getHotspotPosition } from '@/lib/sanityImage';
 
 interface Doctor {
   _id: string;
@@ -12,6 +13,7 @@ interface Doctor {
   credentials?: string;
   bio: any[]; // Portable Text
   imageUrl: string;
+  image?: any; // Full Sanity image object with hotspot/crop
   slug: string;
   specialties?: string[];
 }
@@ -25,6 +27,7 @@ async function getDoctorBySlug(slug: string): Promise<Doctor | null> {
       credentials,
       bio,
       "imageUrl": image.asset->url,
+      image,
       "slug": slug.current,
       specialties
     }
@@ -137,13 +140,14 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Left Sidebar - Image and Specialties */}
             <div className="lg:col-span-1">
-              {doctor.imageUrl && (
+              {(doctor.image || doctor.imageUrl) && (
                 <Image
-                  src={doctor.imageUrl}
+                  src={getImageUrl(doctor.image, 800, 800) || doctor.imageUrl}
                   alt={doctor.name}
                   width={400}
                   height={400}
                   className="rounded-lg shadow-md object-cover w-full h-auto"
+                  style={{ objectPosition: getHotspotPosition(doctor.image) }}
                 />
               )}
               {doctor.specialties && doctor.specialties.length > 0 && (

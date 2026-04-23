@@ -12,6 +12,7 @@ interface Doctor {
   credentials?: string;
   bio: any[];
   imageUrl: string;
+  image?: any; // Full Sanity image object with hotspot/crop
   slug: string;
   specialties?: string[];
 }
@@ -25,6 +26,7 @@ async function getDoctors(): Promise<Doctor[]> {
       credentials,
       bio,
       "imageUrl": image.asset->url,
+      image,
       "slug": slug.current,
       specialties
     }
