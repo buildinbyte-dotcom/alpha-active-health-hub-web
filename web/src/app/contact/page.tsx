@@ -45,41 +45,47 @@ export default function ContactPage() {
                         </div>
                      </div>
 
+                     {/* Parking Info */}
+                     <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3 mt-2">
+                        <div className="text-amber-600 mt-0.5">
+                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div>
+                           <h4 className="font-bold text-amber-900 mb-1">Parking Information</h4>
+                           <p className="text-amber-800">Visitor parking is limited. Street parking is available nearby. Please leave enough time to find parking prior to your appointment.</p>
+                        </div>
+                     </div>
+
                      <AccessibilityBlock />
                   </div>
 
-                  {/* Form & Map */}
+                  {/* Email & Map */}
                   <div className="space-y-8">
-                     {/* Contact Form */}
+                     {/* Email Contact Card */}
                      <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
-                        <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-6">Send us a Message</h3>
-                        <form action="https://api.web3forms.com/submit" method="POST" className="space-y-4">
-                           <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+                        <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-4">Send us a Message</h3>
+                        <p className="text-lg text-gray-700 mb-6">
+                           For enquiries, appointment requests, or any questions, please email us directly and our team will get back to you as soon as possible.
+                        </p>
 
-                           <div>
-                              <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
-                              <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[var(--color-primary)] focus:ring-2 focus:ring-blue-200 outline-hidden transition-colors" />
+                        <div className="flex items-start gap-4 mb-6">
+                           <div className="bg-blue-100 p-3 rounded-full text-[var(--color-primary)]">
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                            </div>
-
                            <div>
-                              <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-1">Email Address</label>
-                              <input type="email" id="email" name="email" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[var(--color-primary)] focus:ring-2 focus:ring-blue-200 outline-hidden transition-colors" />
+                              <h4 className="font-bold text-gray-900">Email</h4>
+                              <a href="mailto:admin@alphaactivehealth.com.au" className="text-lg text-[var(--color-action)] hover:underline break-all">
+                                 admin@alphaactivehealth.com.au
+                              </a>
                            </div>
+                        </div>
 
-                           <div>
-                              <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-1">Phone Number</label>
-                              <input type="tel" id="phone" name="phone" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[var(--color-primary)] focus:ring-2 focus:ring-blue-200 outline-hidden transition-colors" />
-                           </div>
-
-                           <div>
-                              <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-1">Message</label>
-                              <textarea id="message" name="message" rows={4} required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[var(--color-primary)] focus:ring-2 focus:ring-blue-200 outline-hidden transition-colors"></textarea>
-                           </div>
-
-                           <button type="submit" className="w-full bg-[var(--color-action)] text-white font-bold py-3 rounded-lg hover:bg-[var(--color-action-hover)] transition-colors focus:outline-hidden focus:ring-4 focus:ring-orange-200">
-                              Send Message
-                           </button>
-                        </form>
+                        <a
+                           href="mailto:admin@alphaactivehealth.com.au"
+                           className="inline-block w-full text-center bg-[var(--color-action)] text-white font-bold py-3 rounded-lg hover:bg-[var(--color-action-hover)] transition-colors focus:outline-hidden focus:ring-4 focus:ring-orange-200"
+                        >
+                           Email Us Now
+                        </a>
                      </div>
 
                      {/* Interactive Map */}

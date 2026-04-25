@@ -18,6 +18,7 @@ export default function Footer() {
             <div className="flex flex-col gap-1 opacity-90">
               <a href="tel:0291891008" className="hover:underline">Phone: (02) 9189 1008</a>
               <span>Fax: (02) 8905 9625</span>
+              <a href="mailto:admin@alphaactivehealth.com.au" className="hover:underline">Email: admin@alphaactivehealth.com.au</a>
             </div>
           </div>
 
