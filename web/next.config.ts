@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  compress: true,
   images: {
     remotePatterns: [
       {
@@ -8,6 +10,9 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.sanity.io',
       },
     ],
+  },
+  experimental: {
+    optimizeCss: true,
   },
 };
 
