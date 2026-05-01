@@ -109,7 +109,8 @@ export default function ContactPage() {
                            loading="lazy"
                            referrerPolicy="no-referrer-when-downgrade"
                            title="Alpha Active Health Location - 5 Celebration Drive, Bella Vista NSW 2153"
-                        ></iframe>
+                        >
+                        </iframe>
                      </div>
                   </div>
                </div>

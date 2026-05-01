@@ -27,6 +27,7 @@ export default function BioCard({ name, role, credentials, bio, imageUrl, image,
             src={displayUrl}
             alt={name}
             fill
+            loading="lazy"
             className="object-cover"
             style={{ objectPosition }}
           />

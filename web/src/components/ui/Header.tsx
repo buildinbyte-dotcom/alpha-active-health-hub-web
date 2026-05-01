@@ -2,37 +2,61 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [textSize, setTextSize] = useState<"normal" | "large" | "xlarge">("normal");
 
   useEffect(() => {
-    const savedSize = localStorage.getItem("textSize") as "normal" | "large" | "xlarge";
-    if (savedSize) {
-      setTextSize(savedSize);
-      applyTextSize(savedSize);
+    // Defer localStorage read to avoid blocking first paint
+    try {
+      const savedSize = localStorage.getItem("textSize") as "normal" | "large" | "xlarge";
+      if (savedSize) {
+        setTextSize(savedSize);
+        // Use rAF to batch DOM class changes outside the critical path
+        requestAnimationFrame(() => {
+          applyTextSize(savedSize);
+        });
+      }
+    } catch {
+      // localStorage may be unavailable (private browsing, etc.)
     }
   }, []);
 
-  const applyTextSize = (size: "normal" | "large" | "xlarge") => {
+  const applyTextSize = useCallback((size: "normal" | "large" | "xlarge") => {
     const html = document.documentElement;
     html.classList.remove("text-size-large", "text-size-xlarge");
     if (size === "large") html.classList.add("text-size-large");
     if (size === "xlarge") html.classList.add("text-size-xlarge");
-  };
+  }, []);
 
-  const cycleTextSize = () => {
-    let newSize: "normal" | "large" | "xlarge" = "normal";
-    if (textSize === "normal") newSize = "large";
-    else if (textSize === "large") newSize = "xlarge";
-    else newSize = "normal";
+  const cycleTextSize = useCallback(() => {
+    setTextSize((prev) => {
+      let newSize: "normal" | "large" | "xlarge" = "normal";
+      if (prev === "normal") newSize = "large";
+      else if (prev === "large") newSize = "xlarge";
+      else newSize = "normal";
 
-    setTextSize(newSize);
-    localStorage.setItem("textSize", newSize);
-    applyTextSize(newSize);
-  };
+      try {
+        localStorage.setItem("textSize", newSize);
+      } catch {
+        // Ignore storage errors
+      }
+      requestAnimationFrame(() => {
+        applyTextSize(newSize);
+      });
+      return newSize;
+    });
+  }, [applyTextSize]);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -48,7 +72,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-gray-100">
       <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
+        <Link href="/" className="flex items-center" onClick={closeMenu}>
           <Image
             src="/logo.png"
             alt="Alpha Active Health Hub"
@@ -99,7 +123,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button
             className="lg:hidden p-2 text-gray-600 focus:outline-hidden focus:ring-2 focus:ring-[var(--color-action)]"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
           >
@@ -130,28 +154,33 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-4 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-lg font-medium text-[var(--color-foreground)] py-2 border-b border-gray-50 last:border-0"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+      {/* Mobile Menu — always in DOM, toggled via CSS transform (no mount/unmount layout thrash) */}
+      <div
+        className={`mobile-menu lg:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-4 flex flex-col gap-4 ${
+          isMenuOpen ? "menu-open" : ""
+        }`}
+        aria-hidden={!isMenuOpen}
+      >
+        {navLinks.map((link) => (
           <Link
-            href="/contact"
-            className="mt-2 text-center bg-[var(--color-action)] text-white font-bold py-3 px-6 rounded-full w-full"
-            onClick={() => setIsMenuOpen(false)}
+            key={link.href}
+            href={link.href}
+            className="text-lg font-medium text-[var(--color-foreground)] py-2 border-b border-gray-50 last:border-0"
+            onClick={closeMenu}
+            tabIndex={isMenuOpen ? 0 : -1}
           >
-            Book Appointment
+            {link.label}
           </Link>
-        </div>
-      )}
+        ))}
+        <Link
+          href="/contact"
+          className="mt-2 text-center bg-[var(--color-action)] text-white font-bold py-3 px-6 rounded-full w-full"
+          onClick={closeMenu}
+          tabIndex={isMenuOpen ? 0 : -1}
+        >
+          Book Appointment
+        </Link>
+      </div>
     </header>
   );
 }

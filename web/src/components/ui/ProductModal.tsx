@@ -2,7 +2,7 @@
 
 import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 interface ProductModalProps {
     isOpen: boolean;
@@ -18,22 +18,24 @@ interface ProductModalProps {
 }
 
 export default function ProductModal({ isOpen, onClose, product }: ProductModalProps) {
-    // Close on Escape key
-    useEffect(() => {
-        const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
+    // Memoize the escape handler to avoid recreating on each render
+    const handleEscape = useCallback((e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+    }, [onClose]);
 
+    // Close on Escape key + toggle scroll lock via CSS class (not inline style)
+    useEffect(() => {
         if (isOpen) {
             document.addEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            // Use classList toggle instead of direct style mutation to avoid forced layout
+            document.body.classList.add('modal-open');
         }
 
         return () => {
             document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'unset';
+            document.body.classList.remove('modal-open');
         };
-    }, [isOpen, onClose]);
+    }, [isOpen, handleEscape]);
 
     if (!isOpen) return null;
 
@@ -150,8 +152,8 @@ export default function ProductModal({ isOpen, onClose, product }: ProductModalP
                                                 <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
                                             </svg>
                                             <div>
-                                                <p className="font-bold text-[var(--color-primary)] mb-1 text-sm">Doctor's Note:</p>
-                                                <p className="text-gray-700 italic leading-relaxed">"{product.doctorNote}"</p>
+                                                <p className="font-bold text-[var(--color-primary)] mb-1 text-sm">Doctor&apos;s Note:</p>
+                                                <p className="text-gray-700 italic leading-relaxed">&quot;{product.doctorNote}&quot;</p>
                                             </div>
                                         </div>
                                     </div>
@@ -176,23 +178,6 @@ export default function ProductModal({ isOpen, onClose, product }: ProductModalP
                     </div>
                 </div>
             </div>
-
-            <style jsx global>{`
-        @keyframes scale-in {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        
-        .animate-scale-in {
-          animation: scale-in 0.2s ease-out;
-        }
-      `}</style>
         </>
     );
 }
